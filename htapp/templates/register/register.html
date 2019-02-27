@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" class="ui" href="http://www.semantic-ui.cn/dist/semantic.min.css">
+</head>
+{#    <style>#}
+{#        #con{#}
+{#           #}
+{#            background-repeat: no-repeat;#}
+{#            background-size: 100% 100% ;#}
+{#        }#}
+{#    </style>#}
+<body>
+
+<div class="container" id="con">
+    <div class="ui inverted segment" style="width: 300px;margin: 100px auto;">
+    <div class="ui inverted form" >
+        <div class="one fields" >
+            <div class="field">
+                <label>邮箱</label>
+                <input placeholder="邮箱" type="email" id="email">
+            </div>
+        </div>
+
+        <div class="one fields">
+            <div class="field">
+                <label>密码</label>
+                <input placeholder="密码" type="password" id="pwd">
+            </div>
+        </div>
+
+        <div class="one fields">
+            <div class="field">
+                <label>确认密码</label>
+                <input placeholder="确认密码" type="password" id="pwd">
+            </div>
+        </div>
+
+
+        <div class="ui submit button">
+            <button>注册</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+</body>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='js/md5.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='register/js/register.js') }}"></script>
+</html>

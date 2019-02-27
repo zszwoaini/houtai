@@ -1,0 +1,106 @@
+{% extends 'base/base_main.html' %}
+
+
+{% block content %}
+    <table class="table table-hover">
+        <tr>
+            <td>用户id</td>
+            <td>订单id</td>
+            <td>状态</td>
+            <td>创建时间</td>
+            <td>订单总金额</td>
+            <td>商品</td>
+            <td>操作</td>
+        </tr>
+        {% for i in data %}
+            <tr>
+
+                <td>{{ i.user_id }}</td>
+                <td>{{ i.id }}</td>
+                <td class="o_status">{{ i.ch_status }}</td>
+                <td>{{ i.create_time }}</td>
+                <td>{{ i.sum_money }}</td>
+                <td>
+                    <ul>
+                        {% for j in i.order_items %}
+                            <li>{{ j.goods.productlongname }}</li>
+
+                        {% endfor %}
+
+                    </ul>
+                </td>
+                <td>
+
+                    <select name="" id="" o_id="{{ i.id }}">
+                        <option value="1" {{ "selected" if i.status==1 }}>待付款</option>
+                        <option value="2" {{ "selected" if i.status==2 }}>已付款</option>
+                        <option value="3" {{ "selected" if i.status==3 }}>已发货</option>
+                        <option value="4" {{ "selected" if i.status==4 }}>已收货</option>
+                        <option value="5" {{ "selected" if i.status==5 }}>待评价</option>
+                        <option value="6" {{ "selected" if i.status==6 }}>已评价</option>
+                    </select>
+                </td>
+                {#            <td>{{ i. }}</td>#}
+            </tr>
+
+        {% endfor %}
+
+
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                {% if pagination.has_prev %}
+                    <a href="{{ url_for('axfbg.order_manage') }}?page={{ pagination.prev_num }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('axfbg.order_manage') }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                {% endif %}
+            </li>
+            {% for page in pagination.iter_pages() %}
+                {% if page %}
+                    {% if page != pagination.page %}
+                        <li><a href="{{ url_for('axfbg.order_manage') }}?page={{ page }}&per_page=2">{{ page }}</a></li>
+                    {% else %}
+                        <li class="active"><a
+                                href="{{ url_for('axfbg.order_manage') }}?page={{ page }}&per_page=2">{{ page }}<span
+                                class="sr-only">(current)</span></a></li>
+                    {% endif %}
+
+                    {
+                {% endif %}
+            {% endfor %}
+
+            <li>
+                {% if pagination.has_next %}
+                    <a href="{{ url_for('axfbg.order_manage') }}?page={{ pagination.next_num }}&per_page=2"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('axfbg.order_manage') }}?page={{ pagination.pages }}&per_page=2"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+
+{% endblock %}
+ {% block js %}
+    {{ super() }}
+{#    清空所有的li的active class#}
+    <script>
+        $("li").removeClass("active");
+        $("#order_li").addClass("active");
+    </script>
+    <script src="{{ url_for('static', filename='js/order.js') }}"></script>
+{% endblock %}

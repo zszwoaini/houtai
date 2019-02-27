@@ -1,0 +1,94 @@
+{% extends 'base/base_main.html' %}
+
+{% block content %}
+    <table class="table table-hover">
+        <tr>
+                <td>商品</td>
+                <td>id</td>
+                <td>编号</td>
+
+                <td>商品名字</td>
+                <td>价格</td>
+                <td>数量</td>
+
+                <td>状态</td>
+
+
+            </tr>
+        {% for i in goods %}
+
+            <tr>
+
+                <td><img src="{{ i.productimg }}" style="width: 60px;height: 60px"></td>
+                <td>{{ i.id }}</td>
+                <td>{{ i. productid }}</td>
+                <td>{{ i. productlongname }}</td>
+                <td>{{ i. price }}</td>
+                <td>{{ i.storenums  }}</td>
+
+                <td>
+                  <button type="button" i_d="{{ i.id }}" class="btn btn-info">修改</button>
+
+                    <br>
+                    <br>
+                     <button i_id="{{ i.id }}" class="btn btn-danger delete_btn">删除</button>
+                </td>
+
+
+
+            </tr>
+
+
+        {% endfor %}
+
+
+    </table>
+     <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    {% if pagination.has_prev %}
+                        <a href="{{ url_for('axfbg.item_view') }}?page={{ pagination.prev_num }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('axfbg.item_view') }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
+                {% for page in pagination.iter_pages() %}
+                    {% if page %}
+                        {% if page != pagination.page %}
+                            <li><a href="{{ url_for('axfbg.item_view') }}?page={{ page }}&per_page=10">{{ page }}</a></li>
+                        {% else %}
+                            <li class="active"><a
+                                    href="{{ url_for('axfbg.item_view') }}?page={{ page }}&per_page=10">{{ page }}<span
+                                    class="sr-only">(current)</span></a></li>
+                        {% endif %}
+
+{
+                    {% endif %}
+                {% endfor %}
+
+                <li>
+                    {% if pagination.has_next %}
+                        <a href="{{ url_for('axfbg.item_view') }}?page={{ pagination.next_num }}&per_page=10" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('axfbg.item_view') }}?page={{ pagination.pages }}&per_page=10" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+
+
+{% endblock %}
+
+
+{% block js %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/item.js') }}"></script>
+{% endblock %}

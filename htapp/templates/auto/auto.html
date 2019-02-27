@@ -1,0 +1,10 @@
+{% extends 'base/base_main.html' %}
+
+
+{% block js %}
+    {{ super() }}
+    <script>
+       $("li").removeClass("active");
+       $("#auto_li").addClass("active");
+    </script>
+{% endblock %}
